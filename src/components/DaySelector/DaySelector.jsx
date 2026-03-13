@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useAppContext } from '../../context/AppContext'
-import { DIAS_SEMANA } from '../../data/promociones'
+import { DIAS_SEMANA } from '../../data/catalogo'
 import styles from './DaySelector.module.css'
 
 export default function DaySelector() {
