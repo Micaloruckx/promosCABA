@@ -26,7 +26,11 @@ export function usePromosFiltradas() {
   const todasLasPromos = zona === 'pba' ? PROMOS_PBA : PROMOS_CABA
 
   const promosFiltradas = useMemo(() => {
-    let result = getPromosPorDia(todasLasPromos, diaSeleccionado)
+    let result = todasLasPromos.filter(p => {
+      // Si promo.dias es null, aplica todos los días
+      if (p.dias == null) return true;
+      return p.dias.includes(diaSeleccionado);
+    });
 
     // Filtrar por vigencia: solo promos del mes en curso
     const now = new Date()

@@ -21,6 +21,8 @@ export const SUPERMERCADOS = [
   { id: 'jumbo',       label: 'Jumbo',              logo: '🐘', color: '#00923A' },
   { id: 'super-5',     label: 'Super 5',            logo: '5️⃣', color: '#8E44AD' },
   { id: 'cooperativa-flores', label: 'Coop. Las Flores', logo: '🌸', color: '#E74C3C' },
+  { id: 'diarco', label: 'Diarco', logo: '🏪', color: '#F9A825' },
+  { id: 'diarco', label: 'Diarco', logo: '🏪', color: '#F9A825' },
 ]
 
 // ---- Ciudades de PBA ----
@@ -49,6 +51,21 @@ export function getCiudad(id) {
 //   null = aplica en toda la provincia
 // ------------------------------------------------
 export const PROMOCIONES = [
+  // ======== DIARCO TANDIL ========
+  {
+    id: 'pba-tandil-diarco-cuenta-dni',
+    supermercado: 'diarco',
+    medioPago: 'cuenta-dni',
+    descuento: 20,
+    tipo: 'cashback',
+    tope: 2000,
+    dias: [0,1,2,3,4,5,6],
+    ciudades: ['tandil'],
+    descripcion: '20% cashback con Cuenta DNI en Diarco Tandil',
+    condiciones: 'Reintegro en 72 hs. Tope $2.000.',
+    vencimiento: '2026-03-31',
+    destacada: true,
+  },
 
   // ======== LAS FLORES ========
   {
