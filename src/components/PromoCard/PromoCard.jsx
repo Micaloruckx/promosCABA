@@ -1,19 +1,22 @@
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { RiHeartLine, RiHeartFill, RiCalendarLine, RiTimeLine } from 'react-icons/ri'
+import { RiHeartLine, RiHeartFill, RiCalendarLine, RiTimeLine, RiMapPinLine } from 'react-icons/ri'
 import { useAppContext } from '../../context/AppContext'
-import { getSupermercado, getMedioPago, DIAS_SEMANA } from '../../data/promociones'
+import { getMedioPago, DIAS_SEMANA } from '../../data/catalogo'
+import { useGetSupermercado } from '../../hooks/usePromos'
+import { CIUDADES } from '../../data/promociones-pba'
 import styles from './PromoCard.module.css'
 
 const TIPO_CONFIG = {
-  descuento: { label: 'Descuento', className: 'tagDescuento' },
-  cashback: { label: 'Cashback', className: 'tagCashback' },
-  cuotas: { label: 'Cuotas s/i', className: 'tagCuotas' },
-  reintegro: { label: 'Reintegro', className: 'tagReintegro' },
+  descuento:  { label: 'Descuento',  className: 'tagDescuento' },
+  cashback:   { label: 'Cashback',   className: 'tagCashback' },
+  cuotas:     { label: 'Cuotas s/i', className: 'tagCuotas' },
+  reintegro:  { label: 'Reintegro',  className: 'tagReintegro' },
 }
 
 export default function PromoCard({ promo }) {
-  const { toggleFavorito, isFavorito } = useAppContext()
+  const { toggleFavorito, isFavorito, zona } = useAppContext()
+  const getSupermercado = useGetSupermercado()
   const fav = isFavorito(promo.id)
   const super_ = getSupermercado(promo.supermercado)
   const medio = getMedioPago(promo.medioPago)
@@ -21,12 +24,15 @@ export default function PromoCard({ promo }) {
 
   const diasLabel = promo.dias === null
     ? 'Todos los días'
-    : promo.dias.map(d => DIAS_SEMANA[d].label).join(' · ')
+    : promo.dias.map(d => DIAS_SEMANA[d]?.label).join(' · ')
 
-  const descuentoDisplay =
-    promo.tipo === 'cuotas'
-      ? promo.descripcion.split(' ').slice(0, 2).join(' ')
-      : `${promo.descuento}% OFF`
+  const ciudadesLabel = zona === 'pba' && promo.ciudades
+    ? promo.ciudades
+        .map(cid => CIUDADES.find(c => c.id === cid))
+        .filter(Boolean)
+        .map(c => `${c.emoji} ${c.label}`)
+        .join(', ')
+    : null
 
   return (
     <article className={`${styles.card} ${promo.destacada ? styles.destacada : ''}`}>
@@ -41,7 +47,6 @@ export default function PromoCard({ promo }) {
           </span>
           <span className={styles.superLabel}>{super_.label}</span>
         </div>
-
         <button
           className={`${styles.favBtn} ${fav ? styles.favActive : ''}`}
           onClick={() => toggleFavorito(promo.id)}
@@ -54,11 +59,9 @@ export default function PromoCard({ promo }) {
 
       <div className={styles.body}>
         <div className={styles.discount}>
-          <span className={styles.discountValue}>{discuentoDisplay(promo)}</span>
+          <span className={styles.discountValue}>{buildDiscountLabel(promo)}</span>
         </div>
-
         <p className={styles.description}>{promo.descripcion}</p>
-
         <div className={styles.medioPago}>
           <span className={styles.medioLogo} aria-hidden="true">{medio.logo}</span>
           <span className={styles.medioLabel}>{medio.label}</span>
@@ -66,29 +69,32 @@ export default function PromoCard({ promo }) {
             {tipoConfig.label}
           </span>
         </div>
-
         {promo.tope && (
           <p className={styles.tope}>Tope: ${promo.tope.toLocaleString('es-AR')}</p>
         )}
       </div>
 
       <footer className={styles.footer}>
-        <span className={styles.dias}>
+        <span className={styles.meta}>
           <RiCalendarLine aria-hidden="true" />
           {diasLabel}
         </span>
-
+        {ciudadesLabel && (
+          <span className={styles.meta}>
+            <RiMapPinLine aria-hidden="true" />
+            {ciudadesLabel}
+          </span>
+        )}
         {promo.vencimiento && (
-          <span className={styles.vencimiento}>
+          <span className={styles.meta}>
             <RiTimeLine aria-hidden="true" />
             Hasta {formatDate(promo.vencimiento)}
           </span>
         )}
-
         <Link
           to={`/promo/${promo.id}`}
           className={styles.detailLink}
-          aria-label={`Ver detalle de ${promo.descripcion} en ${super_.label}`}
+          aria-label={`Ver detalle: ${promo.descripcion}`}
         >
           Ver detalle →
         </Link>
@@ -97,10 +103,10 @@ export default function PromoCard({ promo }) {
   )
 }
 
-function discuentoDisplay(promo) {
+function buildDiscountLabel(promo) {
   if (promo.tipo === 'cuotas') {
-    const match = promo.descripcion.match(/(\d+)\s+cuotas/i)
-    return match ? `${match[1]} CSI` : 'Cuotas'
+    const m = promo.descripcion.match(/(\d+)\s+cuotas/i)
+    return m ? `${m[1]} CSI` : 'Cuotas'
   }
   return `${promo.descuento}%`
 }
@@ -119,6 +125,7 @@ PromoCard.propTypes = {
     tipo: PropTypes.string.isRequired,
     tope: PropTypes.number,
     dias: PropTypes.arrayOf(PropTypes.number),
+    ciudades: PropTypes.arrayOf(PropTypes.string),
     descripcion: PropTypes.string.isRequired,
     condiciones: PropTypes.string,
     vencimiento: PropTypes.string,

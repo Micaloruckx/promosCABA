@@ -1,8 +1,7 @@
 .card {
-  background: var(--color-gris-100);
-  border-radius: var(--radius-card);
-  border: 1.5px solid var(--color-gris-300);
-  box-shadow: var(--shadow-card);
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-border);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -22,9 +21,9 @@
 }
 
 .destacadaBanner {
-  background: linear-gradient(90deg, var(--color-profundo) 0%, var(--color-fintech) 100%);
-  color: var(--color-celeste);
-  font-family: var(--font-inter-bold);
+  background: linear-gradient(90deg, var(--color-navy) 0%, var(--color-blue) 100%);
+  color: var(--color-sky-light);
+  font-family: var(--font-display);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -101,10 +100,10 @@
 }
 
 .discountValue {
-  font-family: var(--font-inter-bold);
+  font-family: var(--font-display);
   font-size: 2.2rem;
   font-weight: 800;
-  color: var(--color-profundo);
+  color: var(--color-navy);
   line-height: 1;
   letter-spacing: -0.03em;
 }
@@ -139,27 +138,27 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 2px 8px;
-  border-radius: var(--radius-badge);
+  border-radius: var(--radius-pill);
 }
 
 .tagDescuento {
-  background: var(--color-verde);
-  color: var(--color-offwhite);
+  background: var(--color-badge-bg);
+  color: var(--color-blue);
 }
 
 .tagCashback {
-  background: var(--color-amarillo);
-  color: var(--color-gris-900);
+  background: #E8F5E9;
+  color: #2E7D32;
 }
 
 .tagCuotas {
-  background: var(--color-celeste);
-  color: var(--color-profundo);
+  background: #FFF3E0;
+  color: #E65100;
 }
 
 .tagReintegro {
-  background: var(--color-coral);
-  color: var(--color-offwhite);
+  background: #F3E5F5;
+  color: #6A1B9A;
 }
 
 .tope {
@@ -197,4 +196,12 @@
 
 .detailLink:hover {
   color: var(--color-sky);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
 }

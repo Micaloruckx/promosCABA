@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { RiStoreLine, RiHeartLine, RiInformationLine, RiCoupon2Line } from 'react-icons/ri'
+import ZonaSelector from '../ZonaSelector/ZonaSelector'
 import styles from './Navbar.module.css'
 
 export default function Navbar() {
@@ -8,7 +9,11 @@ export default function Navbar() {
       <nav className={styles.nav} aria-label="Navegación principal">
         <div className={styles.brand}>
           <RiCoupon2Line className={styles.brandIcon} aria-hidden="true" />
-          <span className={styles.brandName}>PromosCABA</span>
+          <span className={styles.brandName}>PromosBA</span>
+        </div>
+
+        <div className={styles.center}>
+          <ZonaSelector />
         </div>
 
         <ul className={styles.links}>
@@ -16,9 +21,7 @@ export default function Navbar() {
             <NavLink
               to="/"
               end
-              className={({ isActive }) =>
-                `${styles.link} ${isActive ? styles.linkActive : ''}`
-              }
+              className={({ isActive }) => `${styles.link} ${isActive ? styles.linkActive : ''}`}
               aria-label="Inicio"
             >
               <RiStoreLine className={styles.linkIcon} aria-hidden="true" />
@@ -28,9 +31,7 @@ export default function Navbar() {
           <li>
             <NavLink
               to="/favoritos"
-              className={({ isActive }) =>
-                `${styles.link} ${isActive ? styles.linkActive : ''}`
-              }
+              className={({ isActive }) => `${styles.link} ${isActive ? styles.linkActive : ''}`}
               aria-label="Favoritos"
             >
               <RiHeartLine className={styles.linkIcon} aria-hidden="true" />
@@ -40,9 +41,7 @@ export default function Navbar() {
           <li>
             <NavLink
               to="/acerca"
-              className={({ isActive }) =>
-                `${styles.link} ${isActive ? styles.linkActive : ''}`
-              }
+              className={({ isActive }) => `${styles.link} ${isActive ? styles.linkActive : ''}`}
               aria-label="Acerca de"
             >
               <RiInformationLine className={styles.linkIcon} aria-hidden="true" />

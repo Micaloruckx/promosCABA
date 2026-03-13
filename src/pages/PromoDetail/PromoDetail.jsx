@@ -1,15 +1,18 @@
-import { useParams, Link, useNavigate } from 'react-router-dom'
-import { RiArrowLeftLine, RiHeartLine, RiHeartFill, RiCalendarLine, RiAlertLine } from 'react-icons/ri'
-import { PROMOCIONES, getSupermercado, getMedioPago, DIAS_SEMANA } from '../../data/promociones'
+import { useParams, useNavigate, Link } from 'react-router-dom'
+import { RiArrowLeftLine, RiHeartLine, RiHeartFill, RiCalendarLine, RiAlertLine, RiMapPinLine } from 'react-icons/ri'
+import { getMedioPago, DIAS_SEMANA } from '../../data/catalogo'
+import { CIUDADES } from '../../data/promociones-pba'
 import { useAppContext } from '../../context/AppContext'
+import { usePromoById, useGetSupermercado } from '../../hooks/usePromos'
 import styles from './PromoDetail.module.css'
 
 export default function PromoDetail() {
   const { promoId } = useParams()
   const navigate = useNavigate()
-  const { toggleFavorito, isFavorito } = useAppContext()
+  const { toggleFavorito, isFavorito, zona } = useAppContext()
+  const getSupermercado = useGetSupermercado()
 
-  const promo = PROMOCIONES.find(p => p.id === promoId)
+  const promo = usePromoById(promoId)
 
   if (!promo) {
     return (
@@ -29,17 +32,26 @@ export default function PromoDetail() {
     ? 'Todos los días'
     : promo.dias.map(d => DIAS_SEMANA[d]?.fullLabel).join(', ')
 
+  const ciudadesLabel = promo.ciudades === null
+    ? 'Toda la provincia'
+    : promo.ciudades
+        .map(cid => CIUDADES.find(c => c.id === cid))
+        .filter(Boolean)
+        .map(c => `${c.emoji} ${c.label}`)
+        .join(' · ')
+
   return (
     <main className={styles.page}>
       <div className={styles.container}>
-        {/* Back */}
         <button className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Volver">
           <RiArrowLeftLine aria-hidden="true" /> Volver
         </button>
 
         <article className={styles.card}>
-          {/* Header */}
-          <header className={styles.header} style={{ background: `linear-gradient(135deg, ${super_.color}22, var(--color-sky-pale))` }}>
+          <header
+            className={styles.header}
+            style={{ background: `linear-gradient(135deg, ${super_.color}22, var(--color-sky-pale))` }}
+          >
             <div className={styles.superRow}>
               <span className={styles.superLogo} style={{ background: super_.color + '22' }}>
                 {super_.logo}
@@ -57,7 +69,9 @@ export default function PromoDetail() {
                 <>
                   <span className={styles.pct}>{promo.descuento}%</span>
                   <span className={styles.off}>
-                    {promo.tipo === 'cashback' ? 'Cashback' : promo.tipo === 'reintegro' ? 'Reintegro' : 'OFF'}
+                    {promo.tipo === 'cashback' ? 'Cashback'
+                      : promo.tipo === 'reintegro' ? 'Reintegro'
+                      : 'OFF'}
                   </span>
                 </>
               )}
@@ -74,18 +88,26 @@ export default function PromoDetail() {
             </button>
           </header>
 
-          {/* Body */}
           <div className={styles.body}>
             <Section title="Descripción">
               <p>{promo.descripcion}</p>
             </Section>
 
             <Section title="Días válidos">
-              <p className={styles.dias}>
+              <p className={styles.infoRow}>
                 <RiCalendarLine aria-hidden="true" />
                 {diasLabel}
               </p>
             </Section>
+
+            {zona === 'pba' && (
+              <Section title="Ciudades">
+                <p className={styles.infoRow}>
+                  <RiMapPinLine aria-hidden="true" />
+                  {ciudadesLabel}
+                </p>
+              </Section>
+            )}
 
             {promo.tope && (
               <Section title="Tope de descuento">
@@ -105,7 +127,7 @@ export default function PromoDetail() {
 
             <div className={styles.alert}>
               <RiAlertLine aria-hidden="true" />
-              <p>Verificá las condiciones actualizadas directamente en el supermercado o en la app de tu medio de pago.</p>
+              <p>Verificá las condiciones actualizadas en el supermercado o en la app de tu medio de pago.</p>
             </div>
           </div>
         </article>

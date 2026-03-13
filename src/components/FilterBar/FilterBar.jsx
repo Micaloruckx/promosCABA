@@ -1,34 +1,34 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 import { RiFilterLine, RiFilterOffLine } from 'react-icons/ri'
 import { useAppContext } from '../../context/AppContext'
-import { SUPERMERCADOS, MEDIOS_PAGO } from '../../data/promociones'
+import { MEDIOS_PAGO } from '../../data/catalogo'
 import styles from './FilterBar.module.css'
 
 const TIPOS = [
   { id: 'descuento', label: '% Descuento' },
-  { id: 'cashback', label: 'Cashback' },
-  { id: 'cuotas', label: 'Cuotas s/i' },
+  { id: 'cashback',  label: 'Cashback' },
+  { id: 'cuotas',    label: 'Cuotas s/i' },
   { id: 'reintegro', label: 'Reintegro' },
 ]
 
-export default function FilterBar() {
+export default function FilterBar({ supermercados }) {
   const {
     filtroSuper, setFiltroSuper,
     filtroMedio, setFiltroMedio,
-    filtroTipo, setFiltroTipo,
+    filtroTipo,  setFiltroTipo,
     resetFiltros,
   } = useAppContext()
   const [open, setOpen] = useState(false)
 
   const hayFiltros = filtroSuper.length > 0 || filtroMedio.length > 0 || filtroTipo.length > 0
+  const totalFiltros = filtroSuper.length + filtroMedio.length + filtroTipo.length
 
-  const toggleItem = (setter, current, id) => {
+  const toggleItem = (setter, current, id) =>
     setter(current.includes(id) ? current.filter(x => x !== id) : [...current, id])
-  }
 
   return (
     <div className={styles.wrapper}>
-      {/* Toggle row */}
       <div className={styles.topRow}>
         <button
           className={`${styles.toggleBtn} ${hayFiltros ? styles.active : ''}`}
@@ -38,31 +38,22 @@ export default function FilterBar() {
         >
           <RiFilterLine aria-hidden="true" />
           <span>Filtros</span>
-          {hayFiltros && (
-            <span className={styles.badge}>
-              {filtroSuper.length + filtroMedio.length + filtroTipo.length}
-            </span>
-          )}
+          {hayFiltros && <span className={styles.badge}>{totalFiltros}</span>}
         </button>
 
         {hayFiltros && (
-          <button
-            className={styles.resetBtn}
-            onClick={resetFiltros}
-            aria-label="Limpiar filtros"
-          >
+          <button className={styles.resetBtn} onClick={resetFiltros} aria-label="Limpiar filtros">
             <RiFilterOffLine aria-hidden="true" />
             <span>Limpiar</span>
           </button>
         )}
       </div>
 
-      {/* Panel */}
       {open && (
-        <div className={styles.panel} id="filter-panel" role="group" aria-label="Filtros de búsqueda">
+        <div className={styles.panel} id="filter-panel" role="group" aria-label="Filtros">
           <FilterGroup
             label="Supermercado"
-            items={SUPERMERCADOS}
+            items={supermercados}
             selected={filtroSuper}
             onToggle={(id) => toggleItem(setFiltroSuper, filtroSuper, id)}
           />
@@ -83,6 +74,14 @@ export default function FilterBar() {
       )}
     </div>
   )
+}
+
+FilterBar.propTypes = {
+  supermercados: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    logo: PropTypes.string,
+  })).isRequired,
 }
 
 function FilterGroup({ label, items, selected, onToggle, small = false }) {
@@ -106,7 +105,6 @@ function FilterGroup({ label, items, selected, onToggle, small = false }) {
   )
 }
 
-import PropTypes from 'prop-types'
 FilterGroup.propTypes = {
   label: PropTypes.string.isRequired,
   items: PropTypes.array.isRequired,

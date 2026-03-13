@@ -2,9 +2,9 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--color-profundo);
-  border-bottom: 2px solid var(--color-celeste);
-  box-shadow: var(--shadow-header);
+  background: var(--color-navy);
+  border-bottom: 2px solid var(--color-sky);
+  box-shadow: var(--shadow-md);
 }
 
 .nav {
@@ -27,15 +27,15 @@
 
 .brandIcon {
   font-size: 1.6rem;
-  color: var(--color-fintech);
+  color: var(--color-sky);
 }
 
 .brandName {
-  font-family: var(--font-inter-bold);
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.2rem;
   letter-spacing: -0.02em;
-  color: var(--color-offwhite);
+  color: var(--color-white);
 }
 
 .links {
@@ -50,24 +50,23 @@
   align-items: center;
   gap: 2px;
   padding: 6px 12px;
-  border-radius: var(--radius-btn);
-  color: var(--color-celeste);
+  border-radius: var(--radius-md);
+  color: var(--color-sky-light);
   transition: background var(--transition-fast), color var(--transition-fast);
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  font-family: var(--font-inter-medium);
 }
 
 .link:hover {
-  background: rgba(91, 184, 255, 0.12);
+  background: rgba(41, 182, 246, 0.12);
   color: var(--color-white);
 }
 
 .linkActive {
-  background: rgba(91, 184, 255, 0.2);
-  color: var(--color-fintech) !important;
+  background: rgba(41, 182, 246, 0.2);
+  color: var(--color-sky) !important;
 }
 
 .linkIcon {
@@ -100,4 +99,11 @@
   .linkIcon {
     font-size: 1.1rem;
   }
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--space-sm);
 }

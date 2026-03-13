@@ -1,59 +1,72 @@
 import { useMemo } from 'react'
 import { useAppContext } from '../context/AppContext'
-import { PROMOCIONES, getPromosPorDia } from '../data/promociones'
+import { getPromosPorDia } from '../data/catalogo'
 
-/**
- * Devuelve las promociones filtradas según el contexto global
- * (día seleccionado, supermercados, medios de pago, tipo, búsqueda)
- */
-export function usePromosFiltradas() {
-  const {
-    diaSeleccionado,
-    filtroSuper,
-    filtroMedio,
-    filtroTipo,
-    searchQuery,
-  } = useAppContext()
+import {
+  PROMOCIONES as PROMOS_CABA,
+  SUPERMERCADOS as SUPERS_CABA,
+} from '../data/promociones-caba.js'
 
-  const promosFiltradas = useMemo(() => {
-    let result = getPromosPorDia(diaSeleccionado)
+import {
+  PROMOCIONES as PROMOS_PBA,
+  SUPERMERCADOS as SUPERS_PBA,
+} from '../data/promociones-pba.js'
 
-    if (filtroSuper.length > 0) {
-      result = result.filter(p => filtroSuper.includes(p.supermercado))
-    }
-    if (filtroMedio.length > 0) {
-      result = result.filter(p => filtroMedio.includes(p.medioPago))
-    }
-    if (filtroTipo.length > 0) {
-      result = result.filter(p => filtroTipo.includes(p.tipo))
-    }
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase()
-      result = result.filter(
-        p =>
-          p.descripcion.toLowerCase().includes(q) ||
-          p.supermercado.toLowerCase().includes(q) ||
-          p.medioPago.toLowerCase().includes(q)
-      )
-    }
-
-    // Destacadas primero
-    return [...result].sort((a, b) => (b.destacada ? 1 : 0) - (a.destacada ? 1 : 0))
-  }, [diaSeleccionado, filtroSuper, filtroMedio, filtroTipo, searchQuery])
-
-  const total = PROMOCIONES.length
-  const visible = promosFiltradas.length
-
-  return { promos: promosFiltradas, total, visible }
+export function getSupermercadoDeZona(zona, id) {
+  const lista = zona === 'pba' ? SUPERS_PBA : SUPERS_CABA
+  return lista.find(s => s.id === id) ?? { id, label: id, logo: '🏬', color: '#888' }
 }
 
-/**
- * Devuelve solo las promos favoritas
- */
+export function usePromosFiltradas() {
+  const {
+    zona, ciudadSeleccionada, diaSeleccionado,
+    filtroSuper, filtroMedio, filtroTipo, searchQuery,
+  } = useAppContext()
+
+  const todasLasPromos = zona === 'pba' ? PROMOS_PBA : PROMOS_CABA
+
+  const promosFiltradas = useMemo(() => {
+    let result = getPromosPorDia(todasLasPromos, diaSeleccionado)
+
+    if (zona === 'pba' && ciudadSeleccionada && ciudadSeleccionada !== 'todas') {
+      result = result.filter(p => p.ciudades === null || p.ciudades.includes(ciudadSeleccionada))
+    }
+    if (filtroSuper.length > 0) result = result.filter(p => filtroSuper.includes(p.supermercado))
+    if (filtroMedio.length > 0) result = result.filter(p => filtroMedio.includes(p.medioPago))
+    if (filtroTipo.length > 0) result = result.filter(p => filtroTipo.includes(p.tipo))
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase()
+      result = result.filter(p =>
+        p.descripcion.toLowerCase().includes(q) ||
+        p.supermercado.toLowerCase().includes(q) ||
+        p.medioPago.toLowerCase().includes(q)
+      )
+    }
+    return [...result].sort((a, b) => (b.destacada ? 1 : 0) - (a.destacada ? 1 : 0))
+  }, [zona, ciudadSeleccionada, diaSeleccionado, filtroSuper, filtroMedio, filtroTipo, searchQuery, todasLasPromos])
+
+  return { promos: promosFiltradas, total: todasLasPromos.length, visible: promosFiltradas.length }
+}
+
+export function useSupermercadosZona() {
+  const { zona } = useAppContext()
+  return zona === 'pba' ? SUPERS_PBA : SUPERS_CABA
+}
+
+export function useGetSupermercado() {
+  const { zona } = useAppContext()
+  return (id) => getSupermercadoDeZona(zona, id)
+}
+
 export function usePromosFavoritas() {
   const { favoritos } = useAppContext()
+  const todas = useMemo(() => [...PROMOS_CABA, ...PROMOS_PBA], [])
+  return useMemo(() => todas.filter(p => favoritos.includes(p.id)), [favoritos, todas])
+}
+
+export function usePromoById(id) {
   return useMemo(
-    () => PROMOCIONES.filter(p => favoritos.includes(p.id)),
-    [favoritos]
+    () => [...PROMOS_CABA, ...PROMOS_PBA].find(p => p.id === id) ?? null,
+    [id]
   )
 }
