@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const AppContext = createContext(null)
 
+import { useEffect } from 'react'
 function getZonaInicial() {
   try { return localStorage.getItem('promos-zona') || 'caba' } catch { return 'caba' }
 }
@@ -41,17 +42,42 @@ export function AppProvider({ children }) {
     try { localStorage.setItem('promos-ciudad', ciudad) } catch { /* noop */ }
   }, [])
 
+  // Mejor manejo de favoritos: robustez, sincronización, limpieza
   const [favoritos, setFavoritos] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('promos-favoritos') || '[]') }
-    catch { return [] }
+    try {
+      const stored = JSON.parse(localStorage.getItem('promos-favoritos') || '[]')
+      // Filtrar ids inválidos (promo eliminada)
+      const allPromos = [
+        ...(window.PROMOS_CABA || []),
+        ...(window.PROMOS_PBA || [])
+      ]
+      if (allPromos.length) {
+        return stored.filter(id => allPromos.some(p => p.id === id))
+      }
+      return stored
+    } catch { return [] }
   })
+
+  // Sincronizar con localStorage externo (por ejemplo, otro tab)
+  useEffect(() => {
+    const handler = () => {
+      try {
+        const stored = JSON.parse(localStorage.getItem('promos-favoritos') || '[]')
+        setFavoritos(stored)
+      } catch {}
+    }
+    window.addEventListener('storage', handler)
+    return () => window.removeEventListener('storage', handler)
+  }, [])
 
   const toggleFavorito = useCallback((promoId) => {
     setFavoritos(prev => {
       const next = prev.includes(promoId)
         ? prev.filter(id => id !== promoId)
         : [...prev, promoId]
-      localStorage.setItem('promos-favoritos', JSON.stringify(next))
+      try {
+        localStorage.setItem('promos-favoritos', JSON.stringify(next))
+      } catch {}
       return next
     })
   }, [])
