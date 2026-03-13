@@ -43,8 +43,7 @@
   --space-sm: 8px;
   --space-md: 16px;
   --space-lg: 24px;
-  --space-xl: 40px;
-  --space-xxl: 64px;
+  --space-xl: 32px;
 
   /* Radios */
   --radius-sm: 8px;
@@ -65,6 +64,46 @@
   /* Layout */
   --navbar-height: 64px;
   --max-width: 1200px;
+
+  /* PromoBaires Branding System */
+  /* Paleta principal */
+  --color-fintech: #0A4CFF;
+  --color-profundo: #082B60;
+  --color-celeste: #5BB8FF;
+  --color-crema: #F5EEDC;
+  --color-offwhite: #F9FAFB;
+
+  /* Paleta secundaria */
+  --color-verde: #24C994;
+  --color-amarillo: #FFCF4A;
+  --color-coral: #FF6F63;
+
+  /* Paleta neutra */
+  --color-gris-900: #1F2937;
+  --color-gris-600: #6B7280;
+  --color-gris-300: #D1D5DB;
+  --color-gris-100: #F3F4F6;
+
+  /* Tipografía */
+  --font-inter-bold: 'Inter', sans-serif;
+  --font-inter-medium: 'Inter', sans-serif;
+  --font-inter-regular: 'Inter', sans-serif;
+  --font-manrope: 'Manrope', sans-serif;
+  --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
+
+  /* UI Tokens */
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --radius-badge: 6px;
+  --radius-input: 10px;
+
+  --shadow-card: 0 2px 10px rgba(0,0,0,0.06);
+  --shadow-header: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+html, body {
+  overflow-x: hidden;
+  min-width: 300px;
 }
 
 /* ---- Reset ---- */
@@ -115,11 +154,6 @@ ul, ol {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   line-height: 1.2;
-}
-
-html, body {
-  overflow-x: hidden;
-  min-width: 300px;
 }
 
 /* ---- Focus visible ---- */

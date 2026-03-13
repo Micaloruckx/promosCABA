@@ -1,6 +1,6 @@
 .footer {
-  background: var(--color-navy);
-  color: var(--color-sky-light);
+  background: var(--color-profundo);
+  color: var(--color-celeste);
   margin-top: auto;
   padding: var(--space-xl) var(--space-md);
   text-align: center;
@@ -16,9 +16,9 @@
 }
 
 .copy {
-  font-family: var(--font-display);
+  font-family: var(--font-inter-bold);
   font-size: 0.9rem;
-  color: var(--color-white);
+  color: var(--color-offwhite);
 }
 
 .disclaimer {
@@ -33,11 +33,11 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  color: var(--color-sky-light);
+  color: var(--color-celeste);
 }
 
 .heart {
-  color: #e53935;
+  color: var(--color-coral);
   animation: pulse 1.4s ease-in-out infinite;
 }
 
