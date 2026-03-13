@@ -28,6 +28,16 @@ export function usePromosFiltradas() {
   const promosFiltradas = useMemo(() => {
     let result = getPromosPorDia(todasLasPromos, diaSeleccionado)
 
+    // Filtrar por vigencia: solo promos del mes en curso
+    const now = new Date()
+    const currentMonth = now.getMonth() + 1 // getMonth() es 0-indexed
+    const currentYear = now.getFullYear()
+    result = result.filter(p => {
+      if (!p.vencimiento) return true
+      const [year, month] = p.vencimiento.split('-').map(Number)
+      return year === currentYear && month === currentMonth
+    })
+
     if (zona === 'pba' && ciudadSeleccionada && ciudadSeleccionada !== 'todas') {
       result = result.filter(p => p.ciudades === null || p.ciudades.includes(ciudadSeleccionada))
     }
