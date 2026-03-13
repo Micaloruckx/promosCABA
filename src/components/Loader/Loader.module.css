@@ -1,0 +1,48 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-xxl) var(--space-md);
+}
+
+.spinner {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  animation: spin 1.2s linear infinite;
+}
+
+.ring:nth-child(1) {
+  border-top-color: var(--color-sky);
+  animation-delay: 0s;
+}
+.ring:nth-child(2) {
+  border-top-color: var(--color-blue);
+  inset: 6px;
+  animation-delay: -0.4s;
+}
+.ring:nth-child(3) {
+  border-top-color: var(--color-navy);
+  inset: 12px;
+  animation-delay: -0.8s;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.text {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+}

@@ -1,0 +1,152 @@
+/* ================================================
+   PROMOS CABA – Global Styles
+   Paleta: Azul / Celeste / Blanco-ocre
+   ================================================ */
+
+:root {
+  /* Colores principales */
+  --color-navy: #0D2B5E;
+  --color-blue: #1565C0;
+  --color-blue-mid: #1976D2;
+  --color-sky: #29B6F6;
+  --color-sky-light: #81D4FA;
+  --color-sky-pale: #E1F5FE;
+  --color-ocre: #F5F0E8;
+  --color-ocre-deep: #E8DFD0;
+  --color-white: #FFFFFF;
+
+  /* Texto */
+  --color-text-primary: #0D2B5E;
+  --color-text-secondary: #4A6FA5;
+  --color-text-muted: #8BA4C8;
+
+  /* Superficies */
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F5F0E8;
+  --color-border: #C5D8F0;
+
+  /* Semánticos */
+  --color-success: #2E7D32;
+  --color-warning: #F57F17;
+  --color-error: #C62828;
+  --color-badge-bg: #E3F2FD;
+  --color-badge-text: #1565C0;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 4px rgba(13,43,94,0.08);
+  --shadow-md: 0 4px 16px rgba(13,43,94,0.12);
+  --shadow-lg: 0 8px 32px rgba(13,43,94,0.16);
+  --shadow-card: 0 2px 12px rgba(21,101,192,0.10);
+
+  /* Espaciados */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-xxl: 64px;
+
+  /* Radios */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Tipografía */
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Transiciones */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  /* Layout */
+  --navbar-height: 64px;
+  --max-width: 1200px;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-ocre);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+/* ---- Focus visible ---- */
+:focus-visible {
+  outline: 2px solid var(--color-sky);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ocre);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sky-light);
+  border-radius: var(--radius-pill);
+}
+
+/* ---- Layout helpers ---- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-lg);
+  }
+}

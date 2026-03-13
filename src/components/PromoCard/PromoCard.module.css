@@ -1,0 +1,199 @@
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-sky);
+}
+
+.destacada {
+  border-color: var(--color-sky) !important;
+  box-shadow: var(--shadow-card);
+}
+
+.destacadaBanner {
+  background: linear-gradient(90deg, var(--color-navy) 0%, var(--color-blue) 100%);
+  color: var(--color-sky-light);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px var(--space-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-md) var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.superInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.superLogo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.superLabel {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+}
+
+.favBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.favBtn:hover {
+  color: #e53935;
+  background: #ffeaea;
+}
+
+.favActive {
+  color: #e53935 !important;
+}
+
+/* ---- Body ---- */
+.body {
+  padding: var(--space-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.discount {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.discountValue {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.description {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.medioPago {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.medioLogo {
+  font-size: 1rem;
+}
+
+.medioLabel {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* Tipo tags */
+.tipoTag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.tagDescuento {
+  background: var(--color-badge-bg);
+  color: var(--color-blue);
+}
+
+.tagCashback {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.tagCuotas {
+  background: #FFF3E0;
+  color: #E65100;
+}
+
+.tagReintegro {
+  background: #F3E5F5;
+  color: #6A1B9A;
+}
+
+.tope {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+/* ---- Footer ---- */
+.footer {
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  background: var(--color-ocre);
+}
+
+.dias,
+.vencimiento {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.detailLink {
+  margin-left: auto;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-blue);
+  transition: color var(--transition-fast);
+}
+
+.detailLink:hover {
+  color: var(--color-sky);
+}

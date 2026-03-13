@@ -1,0 +1,128 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.sticky {
+  position: sticky;
+  top: var(--navbar-height);
+  z-index: 50;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.searchRow {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-sm) 0;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-lg);
+  }
+}
+
+.main {
+  flex: 1;
+  padding: var(--space-lg) 0 var(--space-xxl);
+}
+
+/* ---- Heading ---- */
+.heading {
+  margin-bottom: var(--space-lg);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 4px;
+}
+
+.titleSub {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.subtitle {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 540px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---- Empty State ---- */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xxl) var(--space-md);
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 3.5rem;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--color-text-primary);
+}
+
+.emptyText {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  max-width: 320px;
+}
+
+.emptyBtn {
+  padding: 10px 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-blue);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background var(--transition-fast);
+}
+
+.emptyBtn:hover {
+  background: var(--color-navy);
+}
