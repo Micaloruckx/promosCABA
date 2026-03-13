@@ -37,6 +37,26 @@ export function AppProvider({ children }) {
     setSearchQuery('')
   }, [])
 
+  // --- Login admin ---
+  const [admin, setAdmin] = useState(false)
+  const [adminPassword, setAdminPassword] = useState(() => {
+    // Permite configurar la contraseña desde localStorage o variable
+    return localStorage.getItem('promos-admin-pass') || 'admin123'
+  })
+  const loginAdmin = useCallback((pass) => {
+    if (pass === adminPassword) {
+      setAdmin(true)
+      return true
+    }
+    setAdmin(false)
+    return false
+  }, [adminPassword])
+  const logoutAdmin = useCallback(() => setAdmin(false), [])
+  const setAdminPasswordConfig = useCallback((pass) => {
+    setAdminPassword(pass)
+    localStorage.setItem('promos-admin-pass', pass)
+  }, [])
+
   const value = {
     diaSeleccionado,
     setDiaSeleccionado,
@@ -52,6 +72,12 @@ export function AppProvider({ children }) {
     toggleFavorito,
     isFavorito,
     resetFiltros,
+    // Admin
+    admin,
+    loginAdmin,
+    logoutAdmin,
+    adminPassword,
+    setAdminPasswordConfig,
   }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

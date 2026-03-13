@@ -93,14 +93,12 @@ Editá el archivo **`src/data/promociones.js`**. Cada objeto en el array `PROMOC
 
 ---
 
-## ⚙️ Instalación local
+## 📝 Backlog y fuente de datos
 
-```bash
-git clone https://github.com/TU_USUARIO/promos-caba.git
-cd promos-caba
-npm install
-npm run dev
-```
+- **Actualización manual:** Las promociones se actualizan editando el archivo `src/data/promociones.js`. Es la fuente única de verdad.
+- **Automatización futura:** Se planea integrar una API o Google Sheets para actualización automática.
+- **Login y guardado:** Próxima integración con Firebase para login admin y guardado de datos/promos.
+- **Suscripción:** Se agregará funcionalidad para suscripción de correos y novedades.
 
 ---
 

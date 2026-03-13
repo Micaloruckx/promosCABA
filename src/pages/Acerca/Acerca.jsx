@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { RiSendPlane2Line, RiCheckboxCircleLine, RiStoreLine, RiCalendarLine, RiHeartLine } from 'react-icons/ri'
 import styles from './Acerca.module.css'
 
-const INITIAL_FORM = { nombre: '', email: '', supermercado: '', mensaje: '' }
+const INITIAL_FORM = { nombre: '', email: '', supermercado: '', mensaje: '', suscripcion: '' }
 
 export default function Acerca() {
   const [form, setForm] = useState(INITIAL_FORM)
@@ -21,6 +21,7 @@ export default function Acerca() {
     if (!form.email.trim()) errs.email = 'Por favor ingresá tu email.'
     else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = 'El email no es válido.'
     if (!form.mensaje.trim()) errs.mensaje = 'Por favor ingresá un mensaje.'
+    if (form.suscripcion && !/\S+@\S+\.\S+/.test(form.suscripcion)) errs.suscripcion = 'El email de suscripción no es válido.'
     return errs
   }
 
@@ -155,6 +156,16 @@ export default function Acerca() {
                 error={errors.mensaje}
                 placeholder="Ej: 25% OFF en Disco con tarjeta Galicia los miércoles, tope $2.500"
                 required
+              />
+
+              <FormField
+                label="Suscribirme a novedades (opcional)"
+                name="suscripcion"
+                type="email"
+                value={form.suscripcion}
+                onChange={handleChange}
+                error={errors.suscripcion}
+                placeholder="tu@email.com"
               />
 
               <button type="submit" className={styles.submitBtn}>
