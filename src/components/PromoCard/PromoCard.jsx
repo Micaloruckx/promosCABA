@@ -108,7 +108,13 @@ function buildDiscountLabel(promo) {
     const m = promo.descripcion.match(/(\d+)\s+cuotas/i)
     return m ? `${m[1]} CSI` : 'Cuotas'
   }
-  return `${promo.descuento}%`
+  if (promo.tipo === 'cashback') {
+    return `${promo.descuento}% Cashback`
+  }
+  if (promo.tipo === 'reintegro') {
+    return `${promo.descuento}% Reintegro`
+  }
+  return `${promo.descuento}% Descuento`
 }
 
 function formatDate(iso) {
