@@ -22,7 +22,6 @@ export const SUPERMERCADOS = [
   { id: 'super-5',     label: 'Super 5',            logo: '5️⃣', color: '#8E44AD' },
   { id: 'cooperativa-flores', label: 'Coop. Las Flores', logo: '🌸', color: '#E74C3C' },
   { id: 'diarco', label: 'Diarco', logo: '🏪', color: '#F9A825' },
-  { id: 'diarco', label: 'Diarco', logo: '🏪', color: '#F9A825' },
 ]
 
 // ---- Ciudades de PBA ----
